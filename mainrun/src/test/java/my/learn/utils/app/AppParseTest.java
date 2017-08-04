@@ -1,17 +1,10 @@
-package my.test.utils;
+package my.learn.utils.app;
 
 import java.util.List;
 import java.util.Map;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import my.learn.utils.app.ApkConstants;
-import my.learn.utils.app.ApkParseUtil;
-import my.learn.utils.app.AppParse;
-import my.learn.utils.app.AppParseUtil;
-import my.learn.utils.app.IpaConstants;
-import my.learn.utils.app.IpaParseUtil;
 
 public class AppParseTest {
 	private static String apkPath = null;

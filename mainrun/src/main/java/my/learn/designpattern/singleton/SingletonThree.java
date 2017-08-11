@@ -1,7 +1,7 @@
 package my.learn.designpattern.singleton;
 
 /**
- * @Description:看起来线程安全，实际上不安全
+ * @Description:线程安全
  * @author lin
  * @date 2017年8月11日 下午4:51:50
  */
@@ -13,7 +13,7 @@ public class SingletonThree {
 
 	public static SingletonThree getInstance() {
 		if (instance == null) {
-			synchronized (instance) {
+			synchronized (SingletonThree.class) {
 				if (instance == null) {
 					instance = new SingletonThree();
 				}

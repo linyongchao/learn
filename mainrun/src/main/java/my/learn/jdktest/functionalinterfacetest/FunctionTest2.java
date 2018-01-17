@@ -1,4 +1,4 @@
-package my.learn.jdktest.functiontest;
+package my.learn.jdktest.functionalinterfacetest;
 
 /**
  * 有多个抽象方法的接口无法被声明为@FunctionalInterface，会报错

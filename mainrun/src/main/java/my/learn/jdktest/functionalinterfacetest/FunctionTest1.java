@@ -1,4 +1,4 @@
-package my.learn.jdktest.functiontest;
+package my.learn.jdktest.functionalinterfacetest;
 
 /**
  * 有且仅有一个抽象方法的接口可以声明为@FunctionalInterface

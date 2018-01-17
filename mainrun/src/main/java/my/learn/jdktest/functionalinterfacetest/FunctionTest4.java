@@ -1,4 +1,4 @@
-package my.learn.jdktest.functiontest;
+package my.learn.jdktest.functionalinterfacetest;
 
 /**
  * 静态方法和默认方法也不会被认为是抽象方法

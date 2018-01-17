@@ -1,4 +1,4 @@
-package my.learn.interfacetest.consumer;
+package my.learn.jdktest.consumertest;
 
 import java.util.function.Consumer;
 

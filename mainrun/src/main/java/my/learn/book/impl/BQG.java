@@ -1,8 +1,12 @@
 package my.learn.book.impl;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import my.learn.book.dao.BookDb;
 import my.learn.book.dao.BookWeb;
@@ -34,10 +38,13 @@ public class BQG implements BookWeb {
 			i++;
 			dt = dt.nextElementSibling();
 		}
-		String agent = Agent.PC_AGENT.get(String.valueOf((int) Math.floor(Math.random() * 10)));
+		String agent = Agent.PC_AGENT.get(String.valueOf((int) Math.floor(Math.random() * 10) + 1));
 		while (i < size) {
 			i++;
 			dt = dt.nextElementSibling();
+			if (dt.select("a").size() == 0) {
+				continue;
+			}
 			Element a = dt.select("a").get(0);
 			String title = a.text();
 			long titleId = db.existTitle(bookId, title);
@@ -48,7 +55,7 @@ public class BQG implements BookWeb {
 			if (contextId > 0) {
 				continue;
 			}
-			System.out.println(title);
+			System.out.println(name + "--:--" + title);
 			int random = (int) Math.floor(Math.random() * 100 + 200);
 			if (i % 30 == 0) {
 				String key = String.valueOf((int) Math.floor(Math.random() * 10) + 1);
@@ -56,15 +63,34 @@ public class BQG implements BookWeb {
 			}
 			Document txt = Jsoup.connect(base + a.attr("href")).userAgent(agent).get();
 			Element content = txt.getElementById("content");
-			String c = content.html().replaceAll("&nbsp;", " ").replaceAll("<br>", "");
+			String c = content.html().replaceAll("&nbsp;", " ").replaceAll("<br>", "").replaceAll("'", "");
 			db.insertContext(titleId, c);
 			Thread.sleep(random);
 		}
 	}
 
 	@Override
-	public void all(String folder) {
-
+	public void all(String folder) throws Exception {
+		ExecutorService pool = Executors.newFixedThreadPool(5);
+		Document doc = Jsoup.connect(base).get();
+		Elements elements = doc.getElementsByClass("novelslist");
+		for (Element element : elements) {
+			Elements as = element.select("a");
+			for (Element a : as) {
+				pool.execute(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							System.out.println(a.text());
+							only(folder, a.attr("href").replaceAll(base, "").replaceAll("/", ""));
+						} catch (Exception e) {
+							System.out.println("error:" + a.text());
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		}
 	}
 
 }

@@ -10,8 +10,10 @@ public class TestBQG {
 		// bi.only("/Users/lin/", "9_9805");
 		// 大唐贞观第一纨绔
 		// bi.only("/Users/lin/", "20_20851");
-
-		bi.export("/Users/lin/", "大唐贞观第一纨绔");
+		// bi.export("/Users/lin/", "大唐贞观第一纨绔");
+		// 剑道之王
+		// bi.only("/Users/lin/", "4_4878");
+		bi.all("/Users/lin/spider");
 		System.out.println("--over--");
 	}
 }

@@ -98,10 +98,11 @@ public class BookDbImpl implements BookDb {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		String sql = null;
 		long result = 0;
 		try {
 			conn = JdbcUtils.getConnection();
-			String sql = "insert into " + dbname + " (" + keys.toString() + ") values (" + vals.toString() + ")";
+			sql = "insert into " + dbname + " (" + keys.toString() + ") values (" + vals.toString() + ")";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
@@ -109,6 +110,7 @@ public class BookDbImpl implements BookDb {
 				result = rs.getLong(1);
 			}
 		} catch (SQLException e) {
+			System.out.println(sql);
 			e.printStackTrace();
 		} finally {
 			JdbcUtils.close(conn, ps, rs);

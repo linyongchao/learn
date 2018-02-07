@@ -27,7 +27,7 @@ public interface BookWeb {
 	 * @author lin
 	 * @date 2018年2月3日 下午10:22:31
 	 */
-	public void all(String folder);
+	public void all(String folder) throws Exception;
 
 	/**
 	 * 从数据库导出某一本书

@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 
 import my.learn.book.dao.BookDb;
 import my.learn.book.dao.BookWeb;
+import my.learn.book.modal.Book;
 import my.learn.book.utils.Agent;
 
 /**
@@ -26,9 +27,20 @@ public class BQG implements BookWeb {
 		BookDb db = new BookDbImpl();
 		Document doc = Jsoup.connect(base + book + "/").get();
 		String name = doc.getElementsByTag("h1").get(0).text();
-		long bookId = db.existName(name);
-		if (bookId == 0) {
+		Book book2 = db.getBook(name);
+		long bookId = 0;
+		if (book2 == null) {
 			bookId = db.insertName(name);
+		} else if (book2.getIsEnd() == 1) {
+			if (book2.getIsExport() == 0) {
+				BookWeb bw = new BQG();
+				bw.export(path, name);
+				db.updateBook(book2.getId(), true, true);
+			}
+			System.out.println("skip:" + name);
+			return;
+		} else {
+			bookId = book2.getId();
 		}
 		Element list = doc.getElementById("list");
 		int size = list.getElementsByTag("dd").size();
@@ -53,6 +65,7 @@ public class BQG implements BookWeb {
 			}
 			long contextId = db.existContext(titleId);
 			if (contextId > 0) {
+				System.out.println("skip:" + title);
 				continue;
 			}
 			System.out.println(name + "--:--" + title);
@@ -67,11 +80,15 @@ public class BQG implements BookWeb {
 			db.insertContext(titleId, c);
 			Thread.sleep(random);
 		}
+		db.updateBook(bookId, true, false);
+		BookWeb bw = new BQG();
+		bw.export(path, name);
+		db.updateBook(bookId, true, true);
 	}
 
 	@Override
 	public void all(String folder) throws Exception {
-		ExecutorService pool = Executors.newFixedThreadPool(5);
+		ExecutorService pool = Executors.newFixedThreadPool(4);
 		Document doc = Jsoup.connect(base).get();
 		Elements elements = doc.getElementsByClass("novelslist");
 		for (Element element : elements) {

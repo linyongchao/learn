@@ -5,6 +5,8 @@ public class Book {
 	private String name;
 	private String title;
 	private String context;
+	private int isEnd;
+	private int isExport;
 
 	public long getId() {
 		return id;
@@ -36,6 +38,22 @@ public class Book {
 
 	public void setContext(String context) {
 		this.context = context;
+	}
+
+	public int getIsEnd() {
+		return isEnd;
+	}
+
+	public void setIsEnd(int isEnd) {
+		this.isEnd = isEnd;
+	}
+
+	public int getIsExport() {
+		return isExport;
+	}
+
+	public void setIsExport(int isExport) {
+		this.isExport = isExport;
 	}
 
 }

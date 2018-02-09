@@ -86,6 +86,62 @@ public class BookDbImpl implements BookDb {
 		return list;
 	}
 
+	@Override
+	public Book getBook(String name) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Book book = null;
+		String sql = "select id,name,is_end,is_export from tb_book_name where name =?";
+		try {
+			conn = JdbcUtils.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				book = new Book();
+				book.setId(rs.getLong(1));
+				book.setName(rs.getString(2));
+				book.setIsEnd(rs.getInt(3));
+				book.setIsExport(rs.getInt(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.close(conn, ps, rs);
+		}
+		return book;
+	}
+
+	@Override
+	public int updateBook(Long bookId, boolean isEnd, boolean isExport) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		StringBuffer sb = new StringBuffer("update tb_book_name set ");
+		if (isEnd) {
+			sb.append(" is_end = 1 ");
+		}
+		if (isEnd && isExport) {
+			sb.append(",");
+		}
+		if (isExport) {
+			sb.append(" is_export = 1");
+		}
+		sb.append(" where id = ?");
+		try {
+			conn = JdbcUtils.getConnection();
+			ps = conn.prepareStatement(sb.toString());
+			ps.setLong(1, bookId);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.close(conn, ps, null);
+		}
+		return result;
+	}
+
 	private long insert(String dbname, Map<String, Object> map) {
 		StringBuffer keys = new StringBuffer();
 		StringBuffer vals = new StringBuffer();

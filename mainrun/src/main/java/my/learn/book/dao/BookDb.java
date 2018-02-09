@@ -69,7 +69,7 @@ public interface BookDb {
 	public long existContext(long titleId);
 
 	/**
-	 * 查询一本书
+	 * 查询一本书，包含其所有章节
 	 * 
 	 * @param bookId
 	 * @return
@@ -77,5 +77,27 @@ public interface BookDb {
 	 * @date 2018年2月6日 下午5:38:00
 	 */
 	public List<Book> getBook(Long bookId);
+
+	/**
+	 * 查询某一本书
+	 * 
+	 * @param name
+	 * @return
+	 * @author lin
+	 * @date 2018年2月8日 下午2:17:05
+	 */
+	public Book getBook(String name);
+
+	/**
+	 * 修改某一本书
+	 * 
+	 * @param bookId
+	 * @param isEnd
+	 * @param isExport
+	 * @return
+	 * @author lin
+	 * @date 2018年2月8日 下午2:18:50
+	 */
+	public int updateBook(Long bookId, boolean isEnd, boolean isExport);
 
 }

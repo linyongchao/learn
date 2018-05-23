@@ -15,24 +15,12 @@ import javax.crypto.spec.IvParameterSpec;
  * @author lin
  * @date 2018年5月23日 上午11:18:53
  */
-/**
- * 
- * 
- * @author lin
- * @date 2018年5月23日 上午11:31:28
- */
-/**
- * 
- * 
- * @author lin
- * @date 2018年5月23日 上午11:31:29
- */
 public class ThreeDesUtil {
 
 	private static final String ALGORITHM = "desede";
 	private static final String TRANSFORMATION = "desede/CBC/PKCS5Padding";
 	/**
-	 * key 长度
+	 * 秘钥长度
 	 */
 	private static final int KEY_LENGTH = 24;
 	/**
@@ -164,7 +152,6 @@ public class ThreeDesUtil {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	public static void main(String[] args) throws UnsupportedEncodingException {

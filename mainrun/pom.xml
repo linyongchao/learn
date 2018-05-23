@@ -49,6 +49,12 @@
 	    <artifactId>jsoup</artifactId>
 	    <version>1.11.2</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
+	<dependency>
+	    <groupId>com.oracle</groupId>
+	    <artifactId>ojdbc6</artifactId>
+	    <version>11.1.0.7.0</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>mainrun</finalName>
@@ -70,7 +76,7 @@
 		<repository>
 			<id>nexus</id>
 			<name>my</name>
-			<url>http://192.168.3.202:8081/repository/my/</url>
+			<url>http://192.168.3.248:8081/repository/my/</url>
 		</repository>
 	</repositories>
 </project>

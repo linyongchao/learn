@@ -1,15 +1,12 @@
 package my.learn.book.test;
 
 import my.learn.book.dao.BookDb;
-import my.learn.book.dao.BookWeb;
-import my.learn.book.impl.BQG;
 import my.learn.book.impl.BookDbImpl;
 
 public class TestBookDbImpl {
 	public static void main(String[] args) {
 		// testInsert();
 		testExist();
-		testExport();
 		System.out.println("--over--");
 	}
 
@@ -41,8 +38,4 @@ public class TestBookDbImpl {
 		System.out.println(contextId2);
 	}
 
-	public static void testExport() {
-		BookWeb db = new BQG();
-		db.export("/Users/lin", "唐朝好地主");
-	}
 }

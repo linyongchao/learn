@@ -1,5 +1,6 @@
 package my.learn.book.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,10 +84,9 @@ public class BQG5 implements BookWeb {
 				String key = String.valueOf((int) Math.floor(Math.random() * 10) + 1);
 				agent = Agent.PC_AGENT.get(key);
 			}
-			Document txt = Jsoup.connect(a.attr("href")).userAgent(agent).get();
-			Element content = txt.getElementById("content");
-			String c = content.html().replaceAll("&nbsp;", " ").replaceAll("<br>", "").replaceAll("'", "");
-			db.insertContext(titleId, c);
+			StringBuilder sb = new StringBuilder();
+			getOnePage(a.attr("href"), book, null, agent, sb);
+			db.insertContext(titleId, sb.toString());
 			Thread.sleep(random);
 			li = li.nextElementSibling();
 			i++;
@@ -95,6 +95,24 @@ public class BQG5 implements BookWeb {
 		BookWeb bw = new BQG5();
 		bw.export(path, name);
 		db.updateBook(bookId, true, true);
+	}
+
+	private void getOnePage(String url, String id, String page, String agent, StringBuilder sb) throws IOException {
+		Document txt = Jsoup.connect(url).userAgent(agent).get();
+		String c = getContext(txt);
+		sb.append(c);
+		Element b = txt.getElementsByClass("bottem2").get(0);
+		Element next = b.select("a").get(3);
+		page = next.attr("href");
+		if ("下一页".equals(next.text())) {
+			url = base + id + "/" + page;
+			getOnePage(url, id, page, agent, sb);
+		}
+	}
+
+	private String getContext(Document txt) {
+		Element content = txt.getElementById("content");
+		return content.html().replaceAll("&nbsp;", " ").replaceAll("<br>", "").replaceAll("'", "");
 	}
 
 	@Override

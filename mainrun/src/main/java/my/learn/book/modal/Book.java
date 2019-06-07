@@ -3,6 +3,7 @@ package my.learn.book.modal;
 public class Book {
 	private long id;
 	private String name;
+	private long titleId;
 	private String title;
 	private String context;
 	private int isEnd;
@@ -22,6 +23,14 @@ public class Book {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public long getTitleId() {
+		return titleId;
+	}
+
+	public void setTitleId(long titleId) {
+		this.titleId = titleId;
 	}
 
 	public String getTitle() {

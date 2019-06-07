@@ -100,4 +100,15 @@ public interface BookDb {
 	 */
 	public int updateBook(Long bookId, boolean isEnd, boolean isExport);
 
+	/**
+	 * 删除某一本书
+	 * 
+	 * 
+	 * @param bookId
+	 * @return
+	 * @author lin
+	 * @date 2019年6月8日 上午2:39:38
+	 */
+	public int deleteBook(Long bookId);
+
 }

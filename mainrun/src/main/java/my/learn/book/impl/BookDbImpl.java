@@ -61,7 +61,7 @@ public class BookDbImpl implements BookDb {
 
 	@Override
 	public List<Book> getBook(Long bookId) {
-		String sql = "select name,title,context from tb_book_name b, tb_book_title t,tb_book_context c where b.id = t.name_id and t.id = c.title_id and b.id = ?";
+		String sql = "select name,title_id,title,context from tb_book_name b, tb_book_title t,tb_book_context c where b.id = t.name_id and t.id = c.title_id and b.id = ? order by title_id";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -74,8 +74,9 @@ public class BookDbImpl implements BookDb {
 			while (rs.next()) {
 				Book book = new Book();
 				book.setName(rs.getString(1));
-				book.setTitle(rs.getString(2));
-				book.setContext(rs.getString(3));
+				book.setTitleId(rs.getLong(2));
+				book.setTitle(rs.getString(3));
+				book.setContext(rs.getString(4));
 				list.add(book);
 			}
 		} catch (SQLException e) {
@@ -142,6 +143,39 @@ public class BookDbImpl implements BookDb {
 		return result;
 	}
 
+	@Override
+	public int deleteBook(Long bookId) {
+		List<Book> list = getBook(bookId);
+		if (list.size() == 0) {
+			return 0;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (Book book : list) {
+			sb.append(book.getTitleId()).append(",");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		String sql = "delete from tb_book_context where title_id in (" + sb.toString() + ")";
+		Connection conn = JdbcUtils.getConnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.execute();
+			sql = "delete from tb_book_title where name_id = " + bookId;
+			ps = conn.prepareStatement(sql);
+			ps.execute();
+			sql = "update tb_book_name set is_end = 0,is_export = 0 where id = " + bookId;
+			ps = conn.prepareStatement(sql);
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println(sql);
+			e.printStackTrace();
+		} finally {
+			JdbcUtils.close(conn, ps, null);
+		}
+
+		return 0;
+	}
+
 	private long insert(String dbname, Map<String, Object> map) {
 		StringBuffer keys = new StringBuffer();
 		StringBuffer vals = new StringBuffer();
@@ -193,5 +227,6 @@ public class BookDbImpl implements BookDb {
 		}
 		return id;
 	}
+
 
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>图片展示</title>
+</head>
+<body onkeydown="keyEvent(event)">
+<p th:text="${alert}"></p>
+<img th:src="${pic}">
+<form action="/picture/next" id="next"></form>
+<form action="/picture/pre" id="pre"></form>
+<form action="/picture/reset">
+    <input type="submit" value="重置"/>
+</form>
+</body>
+<script type="text/javascript">
+    function keyEvent(e) {
+        var event = window.event || e;
+        var code = event.keyCode || event.which;
+        if(code==39){
+            var form = document.getElementById("next");
+            form.submit();
+        }
+        if(code==37){
+            var form = document.getElementById("pre");
+            form.submit();
+        }
+    }
+</script>
+</html>

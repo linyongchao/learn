@@ -1,7 +1,7 @@
 package my.learn.designpattern.singleton;
 
 /**
- * @Description:线程不安全
+ * @Description: 懒加载，线程不安全
  * @author lin
  * @date 2017年8月11日 下午4:46:39
  */

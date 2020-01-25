@@ -55,6 +55,12 @@
 	    <artifactId>ojdbc6</artifactId>
 	    <version>11.1.0.7.0</version>
 	</dependency>
+	  <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+	  <dependency>
+		  <groupId>cglib</groupId>
+		  <artifactId>cglib</artifactId>
+		  <version>3.3.0</version>
+	  </dependency>
   </dependencies>
   <build>
     <finalName>mainrun</finalName>

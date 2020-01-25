@@ -1,7 +1,7 @@
 package my.learn.designpattern.singleton;
 
 /**
- * @Description:加入synchronized关键字，线程安全，但是性能比较低
+ * @Description: 懒加载，线程安全，但性能较低
  * @author lin
  * @date 2017年8月11日 下午4:48:56
  */

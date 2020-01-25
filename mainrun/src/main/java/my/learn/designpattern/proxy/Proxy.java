@@ -8,6 +8,10 @@ public class Proxy implements Sourceable {
 		this.source = new Source();
 	}
 
+	public Proxy(Source source) {
+		this.source = source;
+	}
+
 	@Override
 	public void method() {
 		System.out.println("before proxy");

@@ -1,12 +1,12 @@
 package my.learn.designpattern.singleton;
 
 /**
- * @Description:线程安全
+ * @Description: 懒加载，线程安全，且高性能，双重校验锁（DCL，即 double-checked locking）
  * @author lin
  * @date 2017年8月11日 下午4:51:50
  */
 public class SingletonThree {
-	private static SingletonThree instance = null;
+	private volatile static SingletonThree instance = null;
 
 	private SingletonThree() {
 	}

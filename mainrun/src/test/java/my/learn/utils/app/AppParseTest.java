@@ -12,7 +12,7 @@ public class AppParseTest {
 
 	@BeforeClass
 	public static void init() {
-		apkPath = "/Users/lin/zzy/apk/portal-main-uusafe-debug1.0.2.apk";
+		apkPath = "/Users/lin/zzy/apk/portal-main-debug1.0.2.apk";
 		ipaPath = "/Users/lin/zzy/apk/mobile_portal_2.1.ipa";
 	}
 

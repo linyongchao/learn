@@ -21,7 +21,7 @@ public class ApkConstants {
 	/**
 	 * 强制更新
 	 */
-	public static final String FORCE_UPGRADE = "com.uusafe.portal.forceUpgrade";
+	public static final String FORCE_UPGRADE = "com.portal.forceUpgrade";
 	/**
 	 * 版本号
 	 */
